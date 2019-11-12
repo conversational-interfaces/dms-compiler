@@ -1,0 +1,6 @@
+
+#{depth: 3, model: myModel}
+fork {
+  _ {
+  }
+}

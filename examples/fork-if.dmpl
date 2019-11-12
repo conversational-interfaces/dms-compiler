@@ -1,0 +1,22 @@
+
+if foo {
+  act 1
+}
+else if bar {
+  act 2
+}
+
+fork {
+  // if is optional, but throws a warning
+  if isWaiting {
+    act 1
+  }
+
+  isReady {
+    act 2
+  }
+
+  _ {
+    act 3
+  }
+}

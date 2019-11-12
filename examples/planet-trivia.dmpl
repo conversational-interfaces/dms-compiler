@@ -1,0 +1,69 @@
+if !exists(Init) {
+  arr = [1, 2, 3]
+  //x = arr[0]
+  //arr[0] = 4
+  //d = {a: 1}
+  //y = d["a"]
+  //d["a"] = 5
+  Init = true
+  WrongCounter = 0
+  IsHint1Given = false
+  IsHint2Given = false
+  IsAnswerGiven = false
+  NumHintsGiven = 0
+  Question = "What's the biggest planet?"
+  CA = "planet.jupiter"
+  CAResponse = "Exactly!"
+  WA1 = "planet"
+  WA1Response = "Nope. That's not the biggest"
+  WA2 = "nonplanet"
+  WA2Response = "That's not a planet"
+  Hint1 = "It has a big red spot"
+  Hint2 = "It's name begins with the letter J"
+  Answer = "The biggest planet is Jupiter"
+  HintAnnouncement = "Here's a hint"
+}
+else {
+  #{depth: 3}
+  fork {
+    WrongCounter <= 3 && !IsAnswerGiven  {
+      act Question
+      input -> result {
+        result == CA {
+          act CAResponse
+          IsAnswerGiven = true
+        }
+        result == WA1 {
+          act WA1Response
+          WrongCounter = WrongCounter + 1
+        }
+        result == WA2 {
+          act WA2Response
+          WrongCounter = WrongCounter + 1
+        }
+        _ {
+          WrongCounter = WrongCounter + 1
+        }
+      }
+    }
+    !IsHint1Given && WrongCounter == 1 {
+      act HintAnnouncement
+      act Hint1
+      IsHint1Given = true
+    }
+    !IsHint2Given && WrongCounter == 2 {
+      act HintAnnouncement
+      act Hint2
+      IsHint2Given = true
+    }
+    !IsAnswerGiven && WrongCounter == 3 {
+      act Answer
+      IsAnswerGiven = true
+    }
+  }
+
+  run "Foo" (Bar, Baz) -> result {
+    if result == 0 {
+    }
+  }
+}

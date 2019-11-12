@@ -1,0 +1,22 @@
+
+// run without any arguments or result
+run "Foo" ()
+
+// run without any arguments and result
+run "Bar" () -> result {
+  result == "one" {
+  }
+  result == "two" {
+  }
+}
+
+// run with arguments but no result
+run "Bar" (x, y)
+
+// run with arguments and result
+run "Bar" (x, y) -> input {
+  result == "one" {
+  }
+  result == "two" {
+  }
+}

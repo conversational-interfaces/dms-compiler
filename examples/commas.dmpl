@@ -1,0 +1,11 @@
+use "Content" import a, b, c
+
+
+a, b, c = _args
+a = _args
+
+run "Question" (a, b, 2+2) -> success {}
+
+def inc (a, b, c) {
+    pop true
+}

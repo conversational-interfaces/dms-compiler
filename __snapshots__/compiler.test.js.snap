@@ -1,0 +1,1077 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Compiler Planet Trivia example 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@fork": Array [
+        Object {
+          "@do": Array [
+            Object {
+              "@set": "\`Init\`",
+              "val": true,
+            },
+            Object {
+              "@set": "\`WrongCounter\`",
+              "val": 0,
+            },
+            Object {
+              "@set": "\`IsHint1Given\`",
+              "val": false,
+            },
+            Object {
+              "@set": "\`IsHint2Given\`",
+              "val": false,
+            },
+            Object {
+              "@set": "\`IsAnswerGiven\`",
+              "val": false,
+            },
+            Object {
+              "@set": "\`NumHintsGiven\`",
+              "val": 0,
+            },
+            Object {
+              "@set": "\`Question\`",
+              "val": "\`What's the biggest planet?\`",
+            },
+            Object {
+              "@set": "\`CA\`",
+              "val": "\`planet.jupiter\`",
+            },
+            Object {
+              "@set": "\`CAResponse\`",
+              "val": "\`Exactly!\`",
+            },
+            Object {
+              "@set": "\`WA1\`",
+              "val": "\`planet\`",
+            },
+            Object {
+              "@set": "\`WA1Response\`",
+              "val": "\`Nope. That's not the biggest\`",
+            },
+            Object {
+              "@set": "\`WA2\`",
+              "val": "\`nonplanet\`",
+            },
+            Object {
+              "@set": "\`WA2Response\`",
+              "val": "\`That's not a planet\`",
+            },
+            Object {
+              "@set": "\`Hint1\`",
+              "val": "\`It has a big red spot\`",
+            },
+            Object {
+              "@set": "\`Hint2\`",
+              "val": "\`It's name begins with the letter J\`",
+            },
+            Object {
+              "@set": "\`Answer\`",
+              "val": "\`The biggest planet is Jupiter\`",
+            },
+            Object {
+              "@set": "\`HintAnnouncement\`",
+              "val": "\`Here's a hint\`",
+            },
+          ],
+          "if": Array [
+            "!",
+            Array [
+              "?",
+              "Init",
+            ],
+          ],
+        },
+        Object {
+          "@do": Array [
+            Object {
+              "@fork": Array [
+                Object {
+                  "@do": Array [
+                    Object {
+                      "@act": "Question",
+                    },
+                    Object {
+                      "@fork": Array [
+                        Object {
+                          "@do": Array [
+                            Object {
+                              "@act": "CAResponse",
+                            },
+                            Object {
+                              "@set": "\`IsAnswerGiven\`",
+                              "val": true,
+                            },
+                          ],
+                          "if": Array [
+                            "==",
+                            "_nlu",
+                            "CA",
+                          ],
+                        },
+                        Object {
+                          "@do": Array [
+                            Object {
+                              "@act": "WA1Response",
+                            },
+                            Object {
+                              "@set": "\`WrongCounter\`",
+                              "val": Array [
+                                "+",
+                                "WrongCounter",
+                                1,
+                              ],
+                            },
+                          ],
+                          "if": Array [
+                            "==",
+                            "_nlu",
+                            "WA1",
+                          ],
+                        },
+                        Object {
+                          "@do": Array [
+                            Object {
+                              "@act": "WA2Response",
+                            },
+                            Object {
+                              "@set": "\`WrongCounter\`",
+                              "val": Array [
+                                "+",
+                                "WrongCounter",
+                                1,
+                              ],
+                            },
+                          ],
+                          "if": Array [
+                            "==",
+                            "_nlu",
+                            "WA2",
+                          ],
+                        },
+                        Object {
+                          "@do": Array [
+                            Object {
+                              "@set": "\`WrongCounter\`",
+                              "val": Array [
+                                "+",
+                                "WrongCounter",
+                                1,
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                      "await": Array [
+                        "input",
+                      ],
+                    },
+                  ],
+                  "if": Array [
+                    "&&",
+                    Array [
+                      "<=",
+                      "WrongCounter",
+                      3,
+                    ],
+                    Array [
+                      "!",
+                      "IsAnswerGiven",
+                    ],
+                  ],
+                },
+                Object {
+                  "@do": Array [
+                    Object {
+                      "@act": "HintAnnouncement",
+                    },
+                    Object {
+                      "@act": "Hint1",
+                    },
+                    Object {
+                      "@set": "\`IsHint1Given\`",
+                      "val": true,
+                    },
+                  ],
+                  "if": Array [
+                    "&&",
+                    Array [
+                      "!",
+                      "IsHint1Given",
+                    ],
+                    Array [
+                      "==",
+                      "WrongCounter",
+                      1,
+                    ],
+                  ],
+                },
+                Object {
+                  "@do": Array [
+                    Object {
+                      "@act": "HintAnnouncement",
+                    },
+                    Object {
+                      "@act": "Hint2",
+                    },
+                    Object {
+                      "@set": "\`IsHint2Given\`",
+                      "val": true,
+                    },
+                  ],
+                  "if": Array [
+                    "&&",
+                    Array [
+                      "!",
+                      "IsHint2Given",
+                    ],
+                    Array [
+                      "==",
+                      "WrongCounter",
+                      2,
+                    ],
+                  ],
+                },
+                Object {
+                  "@do": Array [
+                    Object {
+                      "@act": "Answer",
+                    },
+                    Object {
+                      "@set": "\`IsAnswerGiven\`",
+                      "val": true,
+                    },
+                  ],
+                  "if": Array [
+                    "&&",
+                    Array [
+                      "!",
+                      "IsAnswerGiven",
+                    ],
+                    Array [
+                      "==",
+                      "WrongCounter",
+                      3,
+                    ],
+                  ],
+                },
+              ],
+              "scheme": Object {
+                "\`depth\`": 3,
+              },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler act 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@act": "One",
+    },
+    Object {
+      "@act": "Two",
+    },
+    Object {
+      "@act": "Three",
+    },
+  ],
+}
+`;
+
+exports[`Compiler await 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@do": Array [
+        Object {
+          "@act": "Hello",
+        },
+      ],
+      "await": Array [
+        "==",
+        "X",
+        5,
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler builtin pref function 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@set": "\`utility\`",
+      "val": Array [
+        "",
+        Array [
+          "",
+          Object {
+            "\`meeting_scheduled\`": true,
+          },
+          Object {
+            "\`meeting_scheduled\`": false,
+          },
+        ],
+        Array [
+          "",
+          Object {
+            "\`meeting_scheduled\`": true,
+            "\`schedule_conflict\`": false,
+          },
+          Object {
+            "\`meeting_scheduled\`": false,
+            "\`schedule_conflict\`": true,
+          },
+        ],
+        Array [
+          "",
+          Object {
+            "\`meeting_scheduled\`": true,
+            "\`schedule_conflict\`": false,
+          },
+          Object {
+            "\`meeting_scheduled\`": true,
+            "\`schedule_conflict\`": true,
+          },
+        ],
+        Array [
+          "",
+          Object {
+            "\`polite\`": true,
+            "\`refuse_counter\`": 0,
+          },
+          Object {
+            "\`polite\`": true,
+            "\`refuse_counter\`": 1,
+          },
+        ],
+        Array [
+          "",
+          Object {
+            "\`polite\`": true,
+            "\`refuse_counter\`": 0,
+          },
+          Object {
+            "\`polite\`": true,
+            "\`refuse_counter\`": -1,
+          },
+        ],
+        Array [
+          "",
+          Object {
+            "\`int2\`": 3,
+            "\`int\`": 10,
+          },
+          Object {
+            "\`int2\`": 12,
+            "\`int\`": 40,
+          },
+        ],
+        Array [
+          "",
+          Object {
+            "\`int2\`": 3,
+            "\`int\`": 10,
+          },
+          Object {
+            "\`int2\`": -6,
+            "\`int\`": -20,
+          },
+        ],
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler chaining member lookups and function calls 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@set": "\`x\`",
+      "val": Array [
+        "get",
+        "\`c\`",
+        Array [
+          "get",
+          "\`b\`",
+          Array [
+            "get",
+            "\`a\`",
+            "d",
+          ],
+        ],
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler chaining member lookups and function calls 2`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@set": "\`x\`",
+      "val": Array [
+        Array [
+          Array [
+            "d",
+            "a",
+          ],
+          "b",
+        ],
+        "c",
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler chaining member lookups and function calls 3`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@set": "\`x\`",
+      "val": Array [
+        "get",
+        "\`d\`",
+        Array [
+          Array [
+            "get",
+            "\`b\`",
+            Array [
+              "d",
+              "a",
+            ],
+          ],
+          "c",
+        ],
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler comments 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@fork": Array [
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "First",
+            },
+          ],
+          "if": Array [
+            "==",
+            "X",
+            0,
+          ],
+        },
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "Second",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler comments 2`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@fork": Array [
+        Object {
+          "@do": Array [
+            Object {
+              "@act": Array [
+                "+",
+                1,
+                Array [
+                  "/",
+                  Array [
+                    "*",
+                    4,
+                    10,
+                  ],
+                  Array [
+                    "pow",
+                    5,
+                  ],
+                ],
+              ],
+            },
+          ],
+          "if": Array [
+            "==",
+            "X",
+            0,
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler def 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@def": Array [
+        "",
+        "\`Pow\`",
+        "\`x\`",
+      ],
+      "val": Object {
+        "@do": Array [
+          Object {
+            "@pop": Array [
+              "*",
+              "x",
+              "x",
+            ],
+          },
+        ],
+      },
+    },
+    Object {
+      "@act": Array [
+        "Pow",
+        5,
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler expressions 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@act": Array [
+        "+",
+        "X",
+        Array [
+          "*",
+          3,
+          5,
+        ],
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler expressions 2`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@act": Array [
+        "",
+        1,
+        2,
+        3,
+        4,
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler expressions 3`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@act": Array [
+        "++",
+        "\`string\`",
+        "\`string2\`",
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler expressions 4`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@act": Array [
+        "&&",
+        Array [
+          "<",
+          1,
+          2,
+        ],
+        Array [
+          "||",
+          Array [
+            "<",
+            3,
+            4,
+          ],
+          Array [
+            ">=",
+            5,
+            6,
+          ],
+        ],
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler expressions 5`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@act": Array [
+        "in",
+        1,
+        Array [
+          "",
+          1,
+          2,
+          3,
+          4,
+        ],
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler expressions 6`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@act": Array [
+        "funcall",
+        Object {
+          "\`bar\`": 2,
+          "\`foo\`": 1,
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler expressions 7`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@act": Array [
+        "!",
+        "TruthyValue",
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler expressions 8`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@act": Array [
+        "?",
+        "TruthyValue",
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler expressions 9`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@set": "\`X\`",
+      "val": null,
+    },
+  ],
+}
+`;
+
+exports[`Compiler expressions 10`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@act": Array [
+        "get",
+        0,
+        "X",
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler expressions 11`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@act": Array [
+        "get",
+        "\`str\`",
+        "X",
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler fork 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@fork": Array [
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "First",
+            },
+          ],
+          "if": Array [
+            "==",
+            "X",
+            0,
+          ],
+        },
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "Second",
+            },
+          ],
+          "if": Array [
+            "==",
+            "X",
+            1,
+          ],
+        },
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "Third",
+            },
+          ],
+        },
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "Fourth",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler fork 2`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@fork": Array [
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "First",
+            },
+          ],
+          "if": Array [
+            "==",
+            "X",
+            0,
+          ],
+        },
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "Second",
+            },
+          ],
+          "if": Array [
+            "==",
+            "X",
+            1,
+          ],
+        },
+      ],
+      "scheme": Object {
+        "\`depth\`": 2,
+      },
+    },
+  ],
+}
+`;
+
+exports[`Compiler hop 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@hop": 3,
+    },
+  ],
+}
+`;
+
+exports[`Compiler if 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@fork": Array [
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "First",
+            },
+          ],
+          "if": Array [
+            "==",
+            "X",
+            0,
+          ],
+        },
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "Second",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler if 2`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@fork": Array [
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "First",
+            },
+          ],
+          "if": Array [
+            "==",
+            "X",
+            0,
+          ],
+        },
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "Second",
+            },
+          ],
+          "if": Array [
+            "==",
+            "X",
+            1,
+          ],
+        },
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "DoNothing",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler input 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@fork": Array [
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "First",
+            },
+          ],
+          "if": Array [
+            "==",
+            "_nlu",
+            0,
+          ],
+        },
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "Second",
+            },
+          ],
+          "if": Array [
+            "==",
+            "_nlu",
+            1,
+          ],
+        },
+        Object {
+          "@do": Array [
+            Object {
+              "@act": "Third",
+            },
+          ],
+        },
+      ],
+      "await": Array [
+        "input",
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler once 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@do": Array [
+        Object {
+          "@act": "Hello",
+        },
+      ],
+      "once": true,
+    },
+  ],
+}
+`;
+
+exports[`Compiler pop 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@set": "\`X\`",
+      "val": 50,
+    },
+    Object {
+      "@pop": "X",
+    },
+  ],
+}
+`;
+
+exports[`Compiler run 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@do": Array [
+        Object {
+          "@run": "\`Questions\`",
+          "args": Array [
+            "",
+            "foo",
+            "bar",
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler run 2`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@do": Array [
+        Object {
+          "@run": "\`Questions\`",
+          "args": Array [
+            "",
+            "foo",
+            "bar",
+          ],
+        },
+        Object {
+          "@fork": Array [
+            Object {
+              "@do": Array [
+                Object {
+                  "@act": "_return",
+                },
+              ],
+            },
+          ],
+          "await": Array [
+            "return",
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler set 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@set": "\`X\`",
+      "val": "value",
+    },
+  ],
+}
+`;
+
+exports[`Compiler set 2`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@set": Array [
+        "",
+        "\`X\`",
+        "\`Y\`",
+        "\`Z\`",
+      ],
+      "val": "value",
+    },
+  ],
+}
+`;
+
+exports[`Compiler use 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@use": "\`Questions\`",
+      "import": Array [
+        "",
+        "\`foo\`",
+        "\`bar\`",
+      ],
+    },
+  ],
+}
+`;

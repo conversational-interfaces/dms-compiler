@@ -1,0 +1,7 @@
+utility = [
+    pref({meeting_scheduled: true}),
+    pref({meeting_scheduled: true, schedule_conflict: false}),
+    pref({meeting_scheduled: true, schedule_conflict: false}, ["schedule_conflict"]),
+    pref({polite: true, refuse_counter: 0}, ["refuse_counter"]),
+    pref({int: 10, int2: 3})
+]

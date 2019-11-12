@@ -1,0 +1,6 @@
+input -> result {
+    _ {
+        act "hi"
+        hop 2
+    }
+}
