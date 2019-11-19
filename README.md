@@ -1,6 +1,6 @@
 # High-level syntax for DMPL
 
-This provides a compiler than translates [high-level DM Script syntax](https://conversational-interfaces.github.io/dms/) to [DMPL JSON](https://w3c.github.io/dmpl/).
+This provides a compiler than translates [high-level DM Script syntax](https://w3c.github.io/dms/) to [DMPL JSON](https://w3c.github.io/dmpl/).
 
 The language is bracket-based, making the structure clear and easy to parse.
 The syntax is close to current mainstream languages, so it's familiar,
