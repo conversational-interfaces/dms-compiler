@@ -275,7 +275,15 @@ class Compiler {
 
 function compile(src) {
   let compiler = new Compiler(src);
-  return compiler.getSource();
+  let dmpl = compiler.getSource();
+
+  // if special structure detected, perform minor optimization/cleanup
+  if (dmpl['@do'] && dmpl['@do'].length === 1 &&
+    dmpl['@do'][0]['@fork'] && dmpl['@do'][0]['@fork'].length === 1) {
+    return dmpl['@do'][0]['@fork'][0];
+  }
+
+  return dmpl;
 }
 
 module.exports = compile;
