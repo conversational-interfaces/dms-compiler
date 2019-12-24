@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+const fs = require('fs');
+const util = require('util');
+const prettier = require('prettier');
+const compile = require('../compiler');
+
+function run() {
+  let filename = process.argv[2];
+  let src = fs.readFileSync(filename, 'utf8');
+
+  console.log(
+    prettier.format(JSON.stringify(compile(src)), {
+      parser: 'json',
+      printWidth: 90
+    })
+  );
+}
+
+run();
