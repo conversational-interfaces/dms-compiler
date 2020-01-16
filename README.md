@@ -2,13 +2,15 @@
 
 This provides a compiler than translates [high-level DM Script syntax](https://w3c.github.io/dms/) to [DMPL JSON](https://w3c.github.io/dmpl/).
 
-The language is bracket-based, making the structure clear and easy to parse.
+Check out the [dms-scratchpad](https://github.com/conversational-interfaces/dms-scratchpad) for an example usage.
+
+The DM Script language is bracket-based, making the structure clear and easy to parse.
 The syntax is close to current mainstream languages, so it's familiar,
 including infix operators, function calls, and if/else.
 Frequently used statements, such as `input` and `run`, have a nice terse-ness to them.
 
 
-To use the CLI, run `yarn` to install dependencies and then run:
+To use the compiler CLI, run `yarn` to install dependencies and then run:
 
 ```
 ./bin/compile <file>
