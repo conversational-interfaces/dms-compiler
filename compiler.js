@@ -10,7 +10,7 @@ function pref(node, compile) {
           }
           return el.value;
         })
-      : node.args[0].properties.map(prop => prop.name.name);
+      : node.args[0].properties.map(prop => prop.name.value);
 
   function flip(literal, dir) {
     let { value } = literal;
@@ -38,7 +38,7 @@ function pref(node, compile) {
           );
         }
 
-        if (flipKeys.includes(prop.name.name)) {
+        if (flipKeys.includes(prop.name.value)) {
           return {
             ...prop,
             value: flip(prop.value, dir)
