@@ -96,6 +96,8 @@ describe('Compiler', () => {
   test('set', () => {
     expect(compile('X = value')).toMatchSnapshot();
     expect(compile('X, Y, Z = value')).toMatchSnapshot();
+    expect(compile('a[0]["a"] = 1')).toMatchSnapshot();
+    expect(compile('d[a] = 1')).toMatchSnapshot();
   });
 
   test('pop', () => {
@@ -111,6 +113,16 @@ describe('Compiler', () => {
       }
     `)
     ).toMatchSnapshot();
+    expect(compile('run "MyComponent"')).toMatchSnapshot();
+    expect(compile('run "MyComponent" ()')).toMatchSnapshot();
+    expect(compile('run "MyComponent" () -> result')).toMatchSnapshot();
+    expect(compile(`
+      run "MyComponent" () -> _result {
+        _ {
+            result = _result
+        }
+      }
+    `)).toMatchSnapshot();
   });
 
   test('use', () => {
@@ -170,6 +182,10 @@ describe('Compiler', () => {
     // Member lookup
     expect(compile('act X[0]')).toMatchSnapshot();
     expect(compile('act X["str"]')).toMatchSnapshot();
+  });
+
+  test('init dictionary', () => {
+    expect(compile('a = {1: 12, "-1": -1, "a": 11, a: 11}')).toMatchSnapshot();
   });
 
   test('Planet Trivia example', () => {

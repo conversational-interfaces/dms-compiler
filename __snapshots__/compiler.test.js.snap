@@ -495,36 +495,28 @@ exports[`Compiler comments 2`] = `
 Object {
   "@do": Array [
     Object {
-      "@fork": Array [
-        Object {
-          "@do": Array [
-            Object {
-              "@act": Array [
-                "+",
-                1,
-                Array [
-                  "/",
-                  Array [
-                    "*",
-                    4,
-                    10,
-                  ],
-                  Array [
-                    "pow",
-                    5,
-                  ],
-                ],
-              ],
-            },
+      "@act": Array [
+        "+",
+        1,
+        Array [
+          "/",
+          Array [
+            "*",
+            4,
+            10,
           ],
-          "if": Array [
-            "==",
-            "X",
-            0,
+          Array [
+            "pow",
+            5,
           ],
-        },
+        ],
       ],
     },
+  ],
+  "if": Array [
+    "==",
+    "X",
+    0,
   ],
 }
 `;
@@ -908,6 +900,21 @@ Object {
 }
 `;
 
+exports[`Compiler init dictionary 1`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@set": "\`a\`",
+      "val": Object {
+        "\`-1\`": -1,
+        "\`1\`": 12,
+        "\`a\`": 11,
+      },
+    },
+  ],
+}
+`;
+
 exports[`Compiler input 1`] = `
 Object {
   "@do": Array [
@@ -1034,6 +1041,104 @@ Object {
 }
 `;
 
+exports[`Compiler run 3`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@do": Array [
+        Object {
+          "@run": "\`MyComponent\`",
+          "args": Array [
+            "",
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler run 4`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@do": Array [
+        Object {
+          "@run": "\`MyComponent\`",
+          "args": Array [
+            "",
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler run 5`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@do": Array [
+        Object {
+          "@run": "\`MyComponent\`",
+          "args": Array [
+            "",
+          ],
+        },
+        Object {
+          "@fork": Array [
+            Object {
+              "@do": Array [
+                Object {
+                  "@set": "\`result\`",
+                  "val": "_return",
+                },
+              ],
+            },
+          ],
+          "await": Array [
+            "return",
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler run 6`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@do": Array [
+        Object {
+          "@run": "\`MyComponent\`",
+          "args": Array [
+            "",
+          ],
+        },
+        Object {
+          "@fork": Array [
+            Object {
+              "@do": Array [
+                Object {
+                  "@set": "\`result\`",
+                  "val": "_return",
+                },
+              ],
+            },
+          ],
+          "await": Array [
+            "return",
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
 exports[`Compiler set 1`] = `
 Object {
   "@do": Array [
@@ -1056,6 +1161,39 @@ Object {
         "\`Z\`",
       ],
       "val": "value",
+    },
+  ],
+}
+`;
+
+exports[`Compiler set 3`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@set": "\`a\`",
+      "val": Array [
+        "\`edit\`",
+        "a",
+        1,
+        0,
+        "\`a\`",
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Compiler set 4`] = `
+Object {
+  "@do": Array [
+    Object {
+      "@set": "\`d\`",
+      "val": Array [
+        "\`edit\`",
+        "d",
+        1,
+        "a",
+      ],
     },
   ],
 }
