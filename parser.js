@@ -234,13 +234,15 @@ let DMPL = P.createLanguage({
   },
 
   Set: r => {
-    // Double check array-size of 2
     return P.seq(
-      r.CSArray,
-      P.optWhitespace,
-      P.string('='),
-      P.optWhitespace,
-      r.Expression
+        P.alt(
+            r.EditReference,
+            r.CSArray
+        ),
+        P.optWhitespace,
+        P.string('='),
+        P.optWhitespace,
+        r.Expression
     ).map(x => ({
       type: 'Set',
       target: x[0],
@@ -252,26 +254,32 @@ let DMPL = P.createLanguage({
     return P.seq(
       P.string('run').skip(P.optWhitespace),
       r.Expression.skip(P.optWhitespace),
-      P.string('('),
-      r.Expression.sepBy(P.string(',')),
-      P.string(')').trim(P.optWhitespace),
-      P.seq(
-        P.string('->'),
-        r.Symbol.trim(P.optWhitespace),
-        P.string('{'),
-        r.Condition.many(),
-        P.string('}')
+      P.seq(  // p2
+          P.string('('),
+          r.Expression.sepBy(P.string(',')), // args
+          P.string(')').trim(P.optWhitespace),
+          P.seq(  // handleReturn
+              P.string('->'),
+              r.Symbol.trim(P.optWhitespace),  // resultString
+              P.seq( // rest
+                  P.string('{'),
+                  r.Condition.many(),
+                  P.string('}')
+              ).fallback(null)
+          ).fallback(null)
       ).fallback(null)
     ).map(x => {
-      let rest = x[5];
+      let p2 = x[2];
+      let handleReturn = p2 && p2[3];
+      let rest = p2 && handleReturn && handleReturn[2];
       return {
         type: 'Run',
         name: x[1],
-        args: x[3],
-        result: rest && rest[1],
+        args: p2 ? p2[1] : [],
+        result: p2 && handleReturn && handleReturn[1],
         fork: rest && {
           type: 'Fork',
-          conditions: rest[3].map(cond => ({
+          conditions: rest[1].map(cond => ({
             type: 'ForkBranch',
             condition: cond[0] === '_' ? null : cond[0][1],
             body: cond[1]
@@ -334,6 +342,16 @@ let DMPL = P.createLanguage({
       }));
   },
 
+  NoQuoteObjectKey: r => {
+    return P.regexp(/[a-zA-Z0-9_]*/)
+        .map(interpretEscapes)
+        .desc('NoQuoteObjectKey')
+        .map(x => ({
+          type: 'Literal',
+          value: x.toString()
+        }));
+  },
+
   Number: r => {
     return P.regexp(/(-?)[0-9.]+/)
       .map(Number)
@@ -342,6 +360,22 @@ let DMPL = P.createLanguage({
         type: 'Literal',
         value: x
       }));
+  },
+
+  EditReference: r => {
+    return P.seq(
+        r.Symbol,
+        r.MemberPostFix.atLeast(1)
+    ).map(([initialExpr, postFixes]) => {
+      return {
+        type: 'EditReference',
+        target: initialExpr,
+        keys: postFixes.reduce((acc, item) => {
+          acc.push(item.property);
+          return acc;
+        }, [])
+      };
+    });
   },
 
   CSArray: r => {
@@ -370,7 +404,10 @@ let DMPL = P.createLanguage({
       .then(
         P.seq(
           r.Whitespace,
-          r.Symbol,
+          P.alt(
+              r.String,
+              r.NoQuoteObjectKey
+          ),
           P.optWhitespace,
           P.string(':'),
           r.Whitespace,

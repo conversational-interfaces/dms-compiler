@@ -10,7 +10,7 @@ function pref(node, compile) {
           }
           return el.value;
         })
-      : node.args[0].properties.map(prop => prop.name.name);
+      : node.args[0].properties.map(prop => prop.name.value);
 
   function flip(literal, dir) {
     let { value } = literal;
@@ -38,7 +38,7 @@ function pref(node, compile) {
           );
         }
 
-        if (flipKeys.includes(prop.name.name)) {
+        if (flipKeys.includes(prop.name.value)) {
           return {
             ...prop,
             value: flip(prop.value, dir)
@@ -83,7 +83,7 @@ class Compiler {
     };
 
     if (node.scheme) {
-      fork.scheme = this.compileObject(node.scheme, true);
+      fork.scheme = this.compileObject(node.scheme);
     }
 
     return fork;
@@ -158,35 +158,70 @@ class Compiler {
     return ['', ...node.elements.map(n => '`' + this.compile(n) + '`')];
   }
 
-  compileObject(node, quotedKeys = true) {
+  compileEditReference(node, newValue) {
+    return ["`edit`", this.compile(node.target), this.compile(newValue), ...node.keys.map(n => this.compile(n))];
+  }
+
+  compileObject(node) {
     return node.properties.reduce((obj, prop) => {
-      let key = this.compileIdentifier(prop.name);
-      obj[quotedKeys ? '`' + key + '`' : key] = this.compile(prop.value);
+      let key = this.compileLiteral(prop.name);
+      obj[key] = this.compile(prop.value);
       return obj;
     }, {});
   }
 
   compileSet(node) {
-    let target;
+    let target, value;
     if (node.target.type === 'Identifier') {
       target = '`' + node.target.name + '`';
-    } else {
+      value = this.compile(node.value);
+    } else if (node.target.type === 'EditReference') {
+      target = '`' +  this.compile(node.target.target) + '`';
+      value = this.compileEditReference(node.target, node.value);
+    } else { // CSArray
       target = this.compileStringArray(node.target);
       if (target.length == 2) {
         target = target[1];
       }
+      value = this.compile(node.value);
     }
 
     return {
       '@set': target,
-      val: this.compile(node.value)
+      val: value
     };
   }
 
   compileRun(node) {
     let body = null;
-    if (node.fork) {
-      renameIdentifier(node.fork, node.result.name, '_return');
+    if (node.result) {
+      if (node.fork) {
+        renameIdentifier(node.fork, node.result.name, '_return');
+      } else {
+        node.fork = {
+          "type": "Fork",
+          "conditions": [
+            {
+              "type": "ForkBranch",
+              "body": {
+                "type": "StatementList",
+                "list": [{
+                  "type": "Set",
+                  "target": {
+                    "type": "CSArray",
+                    "elements": [{
+                      "type": "Identifier",
+                      "name": node.result.name
+                    }]
+                  },
+                  "value": {
+                    "type": "Identifier", "name": "_return"
+                  }
+                }]
+              }
+            }]
+        };
+      }
       body = this.compileFork(node.fork);
       body.await = ['return'];
     }
