@@ -107,7 +107,7 @@ Object {
                           ],
                           "if": Array [
                             "==",
-                            "_nlu",
+                            "_intent",
                             "CA",
                           ],
                         },
@@ -127,7 +127,7 @@ Object {
                           ],
                           "if": Array [
                             "==",
-                            "_nlu",
+                            "_intent",
                             "WA1",
                           ],
                         },
@@ -147,7 +147,7 @@ Object {
                           ],
                           "if": Array [
                             "==",
-                            "_nlu",
+                            "_intent",
                             "WA2",
                           ],
                         },
@@ -928,7 +928,7 @@ Object {
           ],
           "if": Array [
             "==",
-            "_nlu",
+            "_intent",
             0,
           ],
         },
@@ -940,7 +940,7 @@ Object {
           ],
           "if": Array [
             "==",
-            "_nlu",
+            "_intent",
             1,
           ],
         },

@@ -90,7 +90,7 @@ class Compiler {
   }
 
   compileInput(node) {
-    renameIdentifier(node.fork, node.result.name, '_nlu');
+    renameIdentifier(node.fork, node.result.name, '_intent');
 
     let body = this.compileFork(node.fork);
     body.await = ['input'];
